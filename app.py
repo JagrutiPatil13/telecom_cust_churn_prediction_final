@@ -5,21 +5,21 @@ import pickle
 import bz2file as bz2
 import _pickle as cPickle
 
-
 dmodel = bz2.BZ2File("telco_pkl_comp.txt", 'rb')
 model = cPickle.load(dmodel)
-
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def Home():
+def home():
     return render_template('index.html')
+
 
 @app.route('/analysis')
 def analysis():
     return render_template('analysis.html')
+
 
 @app.route('/prediction', methods=['GET', 'POST'])
 def prediction():
@@ -38,17 +38,17 @@ def prediction():
         data = {'total_og_weightage': [total_og_weightage],
                 'roam_og_mou_8': [roam_og_mou_8], 'days_since_last_rech': [days_since_last_rech],
                 'loc_og_t2m_mou_8': [loc_og_t2m_mou_8], 'aon,total_rech_num_8': [aon, total_rech_num_8],
-                'arpu_8':[arpu_8], 'max_rech_amt_8': [max_rech_amt_8], 'fb_user_weightage': [fb_user_weightage]}
+                'arpu_8': [arpu_8], 'max_rech_amt_8': [max_rech_amt_8], 'fb_user_weightage': [fb_user_weightage]}
 
+        predict = model.predict(np.array(
+            [total_og_weightage, roam_og_mou_8, days_since_last_rech, loc_og_t2m_mou_8, aon, total_rech_num_8, arpu_8,
+             max_rech_amt_8, fb_user_weightage]).reshape(1, 9))
 
-
-        prediction = model.predict(np.array([total_og_weightage,roam_og_mou_8,days_since_last_rech,loc_og_t2m_mou_8,aon,total_rech_num_8,arpu_8,max_rech_amt_8,fb_user_weightage]).reshape(1,9))
-
-        if prediction == 1:
-            prediction = 'Customer will churn'
+        if predict== 1:
+            predict = 'Customer will churn'
         else:
-            prediction = 'Customer will not be churn'
-        return render_template("prediction.html", prediction_text=prediction)
+            predict = 'Customer will not be churn'
+        return render_template("prediction.html", prediction_text=predict)
 
     else:
         return render_template("prediction.html")

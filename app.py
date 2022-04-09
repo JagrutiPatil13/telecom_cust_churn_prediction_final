@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, escape
 
 import numpy as np
 import pickle
-import bz2file as bz2
+import bz2
 import _pickle as cPickle
 
 dmodel = bz2.BZ2File("telco_pkl_comp.txt", 'rb')

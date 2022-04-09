@@ -44,7 +44,7 @@ def prediction():
             [total_og_weightage, roam_og_mou_8, days_since_last_rech, loc_og_t2m_mou_8, aon, total_rech_num_8, arpu_8,
              max_rech_amt_8, fb_user_weightage]).reshape(1, 9))
 
-        if predict== 1:
+        if predict == 1:
             predict = 'Customer will churn'
         else:
             predict = 'Customer will not be churn'

@@ -5,7 +5,7 @@ import pickle
 import bz2
 import _pickle as cPickle
 
-dmodel = bz2.BZ2File("telco_pkl_comp.pbz2", 'rb')
+dmodel = bz2.open("telco_pkl_comp.pbz2", 'rb')
 model = cPickle.load(dmodel)
 
 app = Flask(__name__)

@@ -5,7 +5,8 @@ import pickle
 import bz2
 import _pickle as cPickle
 
-dmodel = bz2.open("telco_pkl_comp.pbz2", 'rb')
+dmodel = pickle.load(open("telco_pkl_comp.pbz2", "rb"), encoding='bytes')
+#dmodel = bz2.open("telco_pkl_comp.pbz2", 'rb')
 model = cPickle.load(dmodel)
 
 app = Flask(__name__)
@@ -47,7 +48,7 @@ def prediction():
         if predict == 1:
             predict = 'Customer will churn'
         else:
-            predict = 'Customer will not be churn'
+            predict = 'Customer will not churn'
         return render_template("prediction.html", prediction_text=predict)
 
     else:

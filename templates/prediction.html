@@ -75,11 +75,15 @@
 
             </div><br><br>
 
-
             <div class="text-center">
                 <button  type="submit" class="btn btn-success">Submit</button><br>
             </div>
-            <h4 class = "text-center"><b>{{prediction_text}}</b></h4><br>
+            {% if "Customer will churn" in prediction_text %}
+            <h4 class = "text-center text-danger"><b>{{prediction_text}}</b></h4>
+            {%else%}
+            <h4 class = "text-center text-success"><b>{{prediction_text}}</b></h4>
+            {%endif%}
+            <br>
         </form><br><br><br><br><br>
 
     </div>
